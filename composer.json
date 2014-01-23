@@ -1,0 +1,77 @@
+{
+    "name": "bml/coin-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony CoinBundle",
+    "keywords": ["Cryptocurrency", "bitcoin", "litecoin", "dogecoin"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Damian Wróblewski",
+            "email": "bombelmam@gmail.com",
+        },
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "phpunit/phpunit": "3.7.*",
+        "symfony/symfony": "~2.4",
+        "doctrine/orm": "~2.2,>=2.2.3",
+        "doctrine/doctrine-bundle": "~1.2",
+        "twig/extensions": "~1.0",
+        "symfony/assetic-bundle": "~2.3",
+        "symfony/swiftmailer-bundle": "~2.3",
+        "symfony/monolog-bundle": "~2.4",
+        "sensio/distribution-bundle": "~2.3",
+        "sensio/framework-extra-bundle": "~3.0",
+        "sensio/generator-bundle": "~2.3",
+        "incenteev/composer-parameter-handler": "~2.0",
+        "mockery/mockery": "dev-master@dev"
+    },
+    "autoload": {
+        "psr-0": { "Bml\\CoinBundle": "" }
+    },
+    "target-dir": "Bml/CoinBundle",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    }
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://packages.example.com"
+        },
+        {
+            "type": "composer",
+            "url": "https://packages.example.com",
+            "options": {
+                "ssl": {
+                    "verify_peer": "true"
+                }
+            }
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Seldaek/monolog"
+        },
+        {
+            "type": "pear",
+            "url": "http://pear2.php.net"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "smarty/smarty",
+                "version": "3.1.7",
+                "dist": {
+                    "url": "http://www.smarty.net/files/Smarty-3.1.7.zip",
+                    "type": "zip"
+                },
+                "source": {
+                    "url": "http://smarty-php.googlecode.com/svn/",
+                    "type": "svn",
+                    "reference": "tags/Smarty_3_1_7/distribution/"
+                }
+            }
+        }
+    ]
+}
