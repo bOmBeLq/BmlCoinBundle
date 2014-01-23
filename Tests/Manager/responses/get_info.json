@@ -1,0 +1,16 @@
+{
+    "version" : 1,
+    "protocolversion" : 2,
+    "walletversion" : 3,
+    "balance" : 1.5,
+    "blocks" : 4,
+    "timeoffset" : 0,
+    "connections" : 5,
+    "proxy" : "proxy",
+    "difficulty" : 8.00000000,
+    "testnet" : true,
+    "keypoololdest" : 9,
+    "keypoolsize" : 10,
+    "paytxfee" : 11,
+    "errors" : "errors"
+}

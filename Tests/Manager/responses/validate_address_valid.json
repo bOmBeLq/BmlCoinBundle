@@ -1,0 +1,9 @@
+{
+    "isvalid": true,
+    "address": "the_address",
+    "ismine": true,
+    "isscript": false,
+    "pubkey": "the_pub_key",
+    "iscompressed": true,
+    "account": "the_account"
+}

@@ -1,0 +1,17 @@
+{
+    "bestblock" : "best_block1",
+    "confirmations" : 1,
+    "value" : 50.00000000,
+    "scriptPubKey" : {
+        "asm" : "asm1",
+        "hex" : "hex1",
+        "reqSigs" : 2,
+        "type" : "type1",
+        "addresses" : [
+            "address1",
+            "address2"
+        ]
+    },
+    "version" : 3,
+    "coinbase" : true
+}

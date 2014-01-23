@@ -1,0 +1,18 @@
+{
+    "hash" : "test_hash",
+    "confirmations" : 5,
+    "size" : 6,
+    "height" : 7,
+    "version" : 1,
+    "merkleroot" : "test_markler_root",
+    "tx" : [
+        "test_tx_1",
+        "test_tx_2"
+    ],
+    "time" : 1000,
+    "nonce" : 2000,
+    "bits" : "BITS",
+    "difficulty" : 1.00000000,
+    "previousblockhash" : "previous_block_hash",
+    "nextblockhash" : "next_block_hash"
+}
