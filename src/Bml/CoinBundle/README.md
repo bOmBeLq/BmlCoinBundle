@@ -18,7 +18,7 @@ Instalation
 1. [..] @todo standard steps (adding to composer etc.) [..]
 
 2. Define clients config
-```php
+```YAML
     bml_coin:
       coins:
         dogecoin:
@@ -31,7 +31,6 @@ Instalation
           rpc_password: A3kcKYX1QsxE7PkvokD7PGY6brWZcWu8BnzKeREQ8Qma
           rpc_host: localhost
           rpc_port: 33336
-
 ```
 
 3. Example usage @todo
@@ -39,6 +38,6 @@ Instalation
 Todo
 ----
 * Better readme
-* Service classes as parameters (for easier extending)
+* Service class names as parameters (for easier extending)
 * implement all available wallet methods (getrwatransaction, listaccounts etc.)
 * Test all methods (unit tests are mostly implemented, but live tests are missing)
