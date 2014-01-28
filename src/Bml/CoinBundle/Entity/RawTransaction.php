@@ -26,7 +26,7 @@ class RawTransaction extends AbstractEntity
     protected $version;
 
     /**
-     * @var int
+     * @var \DateTime
      */
     protected $lockTime;
 
@@ -46,7 +46,7 @@ class RawTransaction extends AbstractEntity
     protected $blockHash;
 
     /**
-     * @var int
+     * @var \DateTime
      */
     protected $blockTime;
 
@@ -57,14 +57,14 @@ class RawTransaction extends AbstractEntity
     protected $confirmations;
 
     /**
-     * @var int
+     * @var \DateTime
      */
     protected $time;
 
     /**
      * @param array $data
      */
-    function __construct(array $data)
+    public function __construct(array $data)
     {
         foreach ($data['vin'] as $vinData) {
             $this->vin[] = new Vin($vinData);
@@ -75,7 +75,17 @@ class RawTransaction extends AbstractEntity
             $this->vout[$voutData['n']] = new Vout($voutData);
         }
         unset($data['vout']);
-        parent::__construct($data, ['locktime' => 'lockTime', 'blockhash' => 'blockHash', 'txid' => 'tx', 'blocktime' => 'blockTime']);
+
+
+        if (isset($data['blocktime'])) {
+            $this->blockTime = \DateTime::createFromFormat('U', $data['blocktime']);
+            unset($data['blocktime']);
+        }
+        if (isset($data['time'])) {
+            $this->time = \DateTime::createFromFormat('U', $data['time']);
+            unset($data['time']);
+        }
+        parent::__construct($data, ['locktime' => 'lockTime', 'blockhash' => 'blockHash', 'txid' => 'tx']);
     }
 
     /**
@@ -143,7 +153,7 @@ class RawTransaction extends AbstractEntity
     }
 
     /**
-     * @return int
+     * @return \DateTime
      */
     public function getTime()
     {
@@ -151,7 +161,7 @@ class RawTransaction extends AbstractEntity
     }
 
     /**
-     * @return int
+     * @return \DateTime
      */
     public function getBlockTime()
     {

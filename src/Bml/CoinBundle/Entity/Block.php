@@ -45,7 +45,7 @@ class Block extends AbstractEntity
     protected $tx;
 
     /**
-     * @var int
+     * @var  \DateTime
      */
     protected $time;
 
@@ -77,8 +77,12 @@ class Block extends AbstractEntity
     /**
      * @param array $data
      */
-    function __construct(array $data)
+    public function __construct(array $data)
     {
+        if (isset($data['time'])) {
+            $this->time = \DateTime::createFromFormat('U', $data['time']);
+            unset($data['time']);
+        }
         $customFields = [
             'previousblockhash' => 'previousBlockHash',
             'nextblockhash' => 'nextBlockHash',
@@ -160,7 +164,7 @@ class Block extends AbstractEntity
     }
 
     /**
-     * @return int
+     * @return  \DateTime
      */
     public function getTime()
     {
@@ -192,4 +196,4 @@ class Block extends AbstractEntity
     }
 
 
-} 
+}

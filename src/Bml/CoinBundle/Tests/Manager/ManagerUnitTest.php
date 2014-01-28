@@ -105,8 +105,10 @@ class ManagerUnitTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $trans->getLockTime());
         $this->assertEquals('blockhash1', $trans->getBlockHash());
         $this->assertEquals(6, $trans->getConfirmations());
-        $this->assertEquals(7, $trans->getTime());
-        $this->assertEquals(8, $trans->getBlockTime());
+        $this->assertInstanceOf('\DateTime', $trans->getTime());
+        $this->assertEquals(7, $trans->getTime()->getTimestamp());
+        $this->assertInstanceOf('\DateTime', $trans->getBlockTime());
+        $this->assertEquals(8, $trans->getBlockTime()->getTimestamp());
 
         //// VIN
         $this->assertCount(2, $trans->getVin());
@@ -218,7 +220,8 @@ class ManagerUnitTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(7, $block->getNumber());
         $this->assertEquals(1, $block->getVersion());
         $this->assertEquals('test_markler_root', $block->getMerkleroot());
-        $this->assertEquals(1000, $block->getTime());
+        $this->assertInstanceOf('\DateTime', $block->getTime());
+        $this->assertEquals(1000, $block->getTime()->getTimestamp());
         $this->assertEquals(2000, $block->getNonce());
         $this->assertEquals('BITS', $block->getBits());
         $this->assertEquals(1, $block->getDifficulty());

@@ -32,13 +32,13 @@ class ScriptPubKey extends AbstractEntity
     /**
      * @var array|string[]
      */
-    protected $addresses;
+    protected $addresses = [];
 
     /**
      * @param array $data
      * @param array $customFields
      */
-    function __construct(array $data, $customFields = [])
+    public function __construct(array $data, $customFields = [])
     {
         $customFields = ['reqSigs' => 'requiredSignatures'];
         parent::__construct($data, $customFields);
@@ -87,4 +87,4 @@ class ScriptPubKey extends AbstractEntity
     }
 
 
-} 
+}
