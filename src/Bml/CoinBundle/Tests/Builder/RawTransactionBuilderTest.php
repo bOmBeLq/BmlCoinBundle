@@ -16,22 +16,22 @@ class RawTransactionBuilderTest extends \PHPUnit_Framework_TestCase
 
 
         $trans = $factory->create();
-        $trans->addTransfer('txid_1', 'address_1', 5); // 1 -> 1
+        $trans->addInput('txid_1', 0);
+        $trans->addOutput('address_1', 5);
 
-        $this->assertEquals('\'[{"txid": "txid_1", "vout": 0}]\'', $trans->getFirstPram());
-        $this->assertEquals('\'{"address_1": 5}\'', $trans->getSecondParam());
+        $this->assertEquals([['txid' => 'txid_1', 'vout' => 0]], $trans->getInput());
+        $this->assertEquals(['address_1' => 5], $trans->getOutput());
+
+        $trans->addOutput('address_2', 6);
+
+        $this->assertEquals([['txid' => 'txid_1', 'vout' => 0]], $trans->getInput());
+        $this->assertEquals(['address_1' => 5, 'address_2' => 6], $trans->getOutput());
 
 
-        $trans->addTransfer('txid_1', 'address_2', 6); // 1 -> 1,2
+        $trans->addInput('txid_2', 1);
 
-        $this->assertEquals('\'[{"txid": "txid_1", "vout": 0}, {"txid": "txid_1", "vout": 1}]\'', $trans->getFirstPram());
-        $this->assertEquals('\'{"address_1": 5}, {"address_2": 6}\'', $trans->getSecondParam());
-
-
-        $trans->addTransfer('txid_2', 'address_1', 7); // 1,2 -> 1  | 1 -> 2
-
-        $this->assertEquals('\'[{"txid": "txid_1", "vout": 0}, {"txid": "txid_1", "vout": 1}, {"txid": "txid_2", "vout": 0}]\'', $trans->getFirstPram());
-        $this->assertEquals('\'{"address_1": 12}, {"address_2": 6}\'', $trans->getSecondParam());
+        $this->assertEquals([['txid' => 'txid_1', 'vout' => 0], ['txid' => 'txid_2', 'vout' => 1]], $trans->getInput());
+        $this->assertEquals(['address_1' => 5, 'address_2' => 6], $trans->getOutput());
 
     }
 }

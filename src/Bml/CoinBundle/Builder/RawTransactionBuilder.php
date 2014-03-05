@@ -12,58 +12,44 @@ class RawTransactionBuilder
     /**
      * @var array
      */
-    private $transfers = [];
+    private $input = [];
 
     /**
-     * @var float[]
+     * @var array
      */
-    private $amountsByAddress = [];
+    private $output = [];
 
     /**
      * @param string $txid
-     * @param string $toAddress
-     * @param float $amount
-     * @return $this
+     * @param int $vout
      */
-    public function addTransfer($txid, $toAddress, $amount)
+    public function addInput($txid, $vout)
     {
-        $this->transfers[] = [$txid, $toAddress];
-        if (!isset($this->amountsByAddress[$toAddress])) {
-            $this->amountsByAddress[$toAddress] = 0;
-        }
-        $this->amountsByAddress[$toAddress] += $amount;
-        return $this;
+        $this->input[] = ['txid' => $txid, 'vout' => $vout];
     }
 
     /**
-     * @return string
+     * @param $address
+     * @param $amount
      */
-    public function getFirstPram()
+    public function addOutput($address, $amount)
     {
-        $return = '\'[';
-        $list = [];
-
-        foreach ($this->transfers as list($txid, $to)) {
-            $vout = array_search($to, array_keys($this->amountsByAddress));
-            $list[] = '{"txid": "' . $txid . '", "vout": ' . $vout . '}';
-        }
-        $return .= implode(', ', $list);
-        $return .= ']\'';
-        return $return;
+        $this->output[$address] = $amount;
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getSecondParam()
+    public function getInput()
     {
-        $return = '\'';
-        $list = [];
-        foreach ($this->amountsByAddress as $address => $amount) {
-            $list[] = '{"' . $address . '": ' . $amount . '}';
-        }
-        $return .= implode(', ', $list);
-        $return .= '\'';
-        return $return;
+        return $this->input;
     }
-} 
+
+    /**
+     * @return array
+     */
+    public function getOutput()
+    {
+        return $this->output;
+    }
+}
