@@ -17,6 +17,10 @@ class CurlClient
 
     private $retrySleep;
 
+    private $host;
+
+    private $port;
+
     /**
      * @param $user
      * @param $password
@@ -27,8 +31,10 @@ class CurlClient
      * @param int $maxRetries
      * @param int $retrySleep
      */
-    function __construct($user, $password, $host, $port, $path = '', $protocol = 'http', $maxRetries = 30, $retrySleep = 1)
+    public function __construct($user, $password, $host, $port, $path = '', $protocol = 'http', $maxRetries = 30, $retrySleep = 1)
     {
+        $this->host = $host;
+        $this->port = $port;
         $this->url = $protocol . '://' . $user . ':' . $password . '@' . $host . ':' . $port . '/' . $path;
         $this->maxRetries = $maxRetries;
         $this->retrySleep = $retrySleep;
@@ -63,6 +69,10 @@ class CurlClient
             $content = curl_exec($curl);
 
             $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            $errNum = curl_errno($curl);
+            $error = curl_error($curl);
+            curl_close($curl);
+
 
             if ($status !== 200) {
                 $code = $status;
@@ -75,20 +85,35 @@ class CurlClient
                     $info = '[' . $response['error']['code'] . '] ' . $response['error']['message'];
                     $code = $response['error']['code'];
                 } else {
-                    if (curl_errno($curl) == 7 && $i < $this->maxRetries - 1) {
+                    if ($errNum == 7 && $i < $this->maxRetries - 1) {
                         sleep($this->retrySleep);
                         continue;
                     }
-                    $info = '[' . curl_errno($curl) . '] ' . curl_error($curl);
+                    $info = '[' . $errNum . '] ' . $error;
                 }
-
-                $info = 'Error while calling "' . $method . '(' . implode(', ', $params) . ')": ' . $info;
+                $imploded = $this->implode($params);
+                $info = 'Error while calling ' . $this->host . ':' . $this->port . ' "' . $method . '(' . $imploded . ')": ' . $info;
                 throw new RequestException($info, $code, $previous);
             }
 
-            curl_close($curl);
             return $content;
         }
+    }
+
+    /**
+     * @param $params
+     * @return string
+     */
+    private function implode($params)
+    {
+        foreach ($params as &$param) {
+            if (is_array($param)) {
+                $param = $this->implode($param);
+            } elseif ($param === null) {
+                $param = '';
+            }
+        }
+        return '[' . implode(', ', $params) . ']';
     }
 
 }

@@ -66,7 +66,7 @@ class CoinManager
      */
     public function createRawTransaction(RawTransactionBuilder $creator)
     {
-        return $this->request('createrawtransaction', [$creator->getFirstPram(), $creator->getSecondParam()]);
+        return $this->request('createrawtransaction', [$creator->getInput(), $creator->getOutput()]);
     }
 
     /**
@@ -78,17 +78,12 @@ class CoinManager
     public function addMultiSigAccount($requiredSigns, array $keys, $account = null)
     {
 
-        foreach ($keys as &$key) {
-            $key = '"' . $key . '"';
-        }
-        $keysStr = "'[";
-        $keysStr .= implode(', ', $keys);
-        $keysStr .= "]'";
-        $params = [$requiredSigns, $keysStr];
-        if($account) {
+        $params = [$requiredSigns, $keys];
+        if ($account) {
             $params[] = $account;
         }
         return $this->request('addmultisigaddress', $params);
+
     }
 
     /**
