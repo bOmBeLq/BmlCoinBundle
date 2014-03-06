@@ -21,6 +21,11 @@ class ValidationResult extends AbstractEntity
     protected $address;
 
     /**
+     * @var string
+     */
+    protected $addresses;
+
+    /**
      * @var bool
      */
     protected $isMine;
@@ -48,7 +53,7 @@ class ValidationResult extends AbstractEntity
     /**
      * @param array $data
      */
-    function __construct(array $data)
+    public function __construct(array $data)
     {
         $customFields = [
             'isvalid' => 'isValid',
@@ -117,6 +122,23 @@ class ValidationResult extends AbstractEntity
         return $this->isValid;
     }
 
+    /**
+     * @param string $addresses
+     * @return $this
+     */
+    public function setAddresses($addresses)
+    {
+        $this->addresses = $addresses;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
+    }
 
 
-} 
+}
