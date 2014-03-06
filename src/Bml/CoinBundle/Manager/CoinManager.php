@@ -28,7 +28,7 @@ class CoinManager
     /**
      * @param CurlClient $client
      */
-    function __construct(CurlClient $client)
+    public function __construct(CurlClient $client)
     {
         $this->client = $client;
     }
@@ -75,7 +75,7 @@ class CoinManager
      * @param $account
      * @return string
      */
-    public function addMultiSigAccount($requiredSigns, array $keys, $account)
+    public function addMultiSigAccount($requiredSigns, array $keys, $account = null)
     {
 
         foreach ($keys as &$key) {
@@ -84,7 +84,11 @@ class CoinManager
         $keysStr = "'[";
         $keysStr .= implode(', ', $keys);
         $keysStr .= "]'";
-        return $this->request('addmultisigaddress', [$requiredSigns, $keysStr, $account]);
+        $params = [$requiredSigns, $keysStr];
+        if($account) {
+            $params[] = $account;
+        }
+        return $this->request('addmultisigaddress', $params);
     }
 
     /**
@@ -276,4 +280,4 @@ class CoinManager
         return isset($responseArr['result']) ? $responseArr['result'] : $response;
 
     }
-} 
+}
