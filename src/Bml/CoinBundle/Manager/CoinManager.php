@@ -10,6 +10,8 @@ use Bml\CoinBundle\Entity\Block;
 use Bml\CoinBundle\Entity\Info;
 use Bml\CoinBundle\Entity\RawTransaction;
 use Bml\CoinBundle\Entity\SignRawTransactionResult;
+use Bml\CoinBundle\Entity\Transaction;
+use Bml\CoinBundle\Entity\TransactionListResult;
 use Bml\CoinBundle\Entity\TxOut;
 use Bml\CoinBundle\Entity\ValidationResult;
 
@@ -34,12 +36,62 @@ class CoinManager
     }
 
     /**
+     * @param string $account
+     * @param int $count
+     * @param int $from
+     * @return array|TransactionListResult[]
+     */
+    public function listTransactions($account = null, $count = null, $from = null)
+    {
+        $params = [];
+        $account !== null && $params[] = $account;
+        $count && $params[] = $count;
+        $from && $params[] = $from;
+
+        $results = $this->request('listtransactions', $params);
+        $transactions = [];
+        foreach ($results as $result) {
+            $transactions[] = new TransactionListResult($result);
+        }
+        return $transactions;
+    }
+
+    /**
      * @param string $hex
      * @return mixed
      */
     public function sendRawTransaction($hex)
     {
         return $this->request('sendrawtransaction', [$hex]);
+    }
+
+    /**
+     * @param $fromAccount
+     * @param array $amounts address/amount key/value pair
+     * @return string
+     */
+    public function sendMany($fromAccount, array $amounts)
+    {
+        return $this->request('sendmany', [$fromAccount, $amounts]);
+    }
+
+    /**
+     * @param string $fromAccount
+     * @param string $toAddress
+     * @param float $amount
+     * @param int $minConf
+     * @param string $comment
+     * @param string $commentTo
+     * @return string
+     */
+    public function sendFrom($fromAccount, $toAddress, $amount, $minConf = null, $comment = null, $commentTo = null)
+    {
+        $params = [$fromAccount, $toAddress, $amount];
+        $minConf !== null && $params[] = $minConf;
+        $comment !== null && $params[] = $comment;
+        $commentTo !== null && $params[] = $commentTo;
+
+        return $this->request('sendfrom', $params);
     }
 
     /**
@@ -230,6 +282,15 @@ class CoinManager
     public function getRawTransaction($tx)
     {
         return new RawTransaction($this->request('getrawtransaction', [$tx, 1]));
+    }
+
+    /**
+     * @param $tx
+     * @return Transaction
+     */
+    public function getTransaction($tx)
+    {
+        return new Transaction($this->request('gettransaction', [$tx]));
     }
 
     /**
