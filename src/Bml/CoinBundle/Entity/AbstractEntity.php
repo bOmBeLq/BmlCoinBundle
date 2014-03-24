@@ -31,6 +31,7 @@ class AbstractEntity
      */
     public function __set($field, $val)
     {
-        throw new \Exception('Trying to set undefined field "' . $field . '"');
+        // ignore that for now
+        //throw new \Exception('Trying to set undefined field "' . $field . '"');
     }
 } 

@@ -92,7 +92,7 @@ class TransactionListResult extends AbstractEntity
      * @var array
      */
     protected $walletConflicts;
-    
+
     /**
      * @param array $data
      */
