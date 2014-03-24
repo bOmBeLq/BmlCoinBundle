@@ -60,6 +60,12 @@ class Transaction extends AbstractEntity
      * @var bool
      */
     protected $generated;
+
+    /**
+     * @var array
+     */
+    protected $walletConflicts;
+
     /**
      * @var TransactionDetails[]
      */
@@ -93,7 +99,8 @@ class Transaction extends AbstractEntity
             'blockindex' => 'blockIndex',
             'blockhash' => 'blockHash',
             'txid' => 'txId',
-            'otheraccount' => 'otherAccount'
+            'otheraccount' => 'otherAccount',
+            'walletconflics' => 'walletConflicts'
         ]);
     }
 
