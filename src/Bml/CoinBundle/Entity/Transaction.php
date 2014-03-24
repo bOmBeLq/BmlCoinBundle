@@ -100,7 +100,7 @@ class Transaction extends AbstractEntity
             'blockhash' => 'blockHash',
             'txid' => 'txId',
             'otheraccount' => 'otherAccount',
-            'walletconflics' => 'walletConflicts'
+            'walletconflicts' => 'walletConflicts'
         ]);
     }
 
