@@ -89,6 +89,11 @@ class TransactionListResult extends AbstractEntity
     protected $generated;
 
     /**
+     * @var array
+     */
+    protected $walletConflicts;
+    
+    /**
      * @param array $data
      */
     public function __construct(array $data)
@@ -109,7 +114,8 @@ class TransactionListResult extends AbstractEntity
             'blockindex' => 'blockIndex',
             'blockhash' => 'blockHash',
             'txid' => 'txId',
-            'otheraccount' => 'otherAccount'
+            'otheraccount' => 'otherAccount',
+            'walletconflicts' => 'walletConflicts'
         ]);
     }
 
