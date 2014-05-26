@@ -7,8 +7,8 @@ namespace Bml\CoinBundle\Entity;
  * @author Damian Wróblewski <d.wroblewski@madden.pl>
  * @package Bml\CoinBundle\Entity
  */
-class TxOut extends Vout {
-
+class TxOut extends Vout
+{
     /**
      * @var string
      */
@@ -33,7 +33,7 @@ class TxOut extends Vout {
     /**
      * @param array $data
      */
-    function __construct(array $data)
+    public function __construct(array $data)
     {
         $customFields = ['bestblock' => 'bestBlock', 'coinbase' => 'coinBase'];
         parent::__construct($data, $customFields);
@@ -73,4 +73,4 @@ class TxOut extends Vout {
 
 
 
-} 
+}

@@ -37,4 +37,4 @@ class SignRawTransactionResult extends AbstractEntity
     }
 
 
-} 
+}

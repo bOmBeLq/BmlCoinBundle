@@ -13,7 +13,7 @@ class AbstractEntity
      * @param array $data
      * @param array $customFields
      */
-    function __construct(array $data, $customFields = [])
+    public function __construct(array $data, $customFields = [])
     {
         foreach ($data as $field => $val) {
             if (isset($customFields[$field])) {
@@ -34,4 +34,4 @@ class AbstractEntity
         // ignore that for now
         //throw new \Exception('Trying to set undefined field "' . $field . '"');
     }
-} 
+}

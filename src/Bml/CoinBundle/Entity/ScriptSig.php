@@ -37,4 +37,4 @@ class ScriptSig extends AbstractEntity
     }
 
 
-} 
+}

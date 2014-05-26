@@ -28,7 +28,7 @@ class Vout extends AbstractEntity
      * @param array $data
      * @param array $customFields
      */
-    function __construct(array $data, $customFields = [])
+    public function __construct(array $data, $customFields = [])
     {
         $this->scriptPubKey = new ScriptPubKey($data['scriptPubKey']);
         unset($data['scriptPubKey']);
@@ -60,4 +60,4 @@ class Vout extends AbstractEntity
     }
 
 
-} 
+}

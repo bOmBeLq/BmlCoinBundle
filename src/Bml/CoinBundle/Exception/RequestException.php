@@ -51,4 +51,4 @@ class RequestException extends \RuntimeException
     const RPC_WALLET_ALREADY_UNLOCKED = -17; // Wallet is already unlocked
 
 
-} 
+}

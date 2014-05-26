@@ -68,7 +68,7 @@ class CoinManager
     /**
      * @param $fromAccount
      * @param array $amounts address/amount key/value pair
-     * @return string
+     * @return PayoutT
      */
     public function sendMany($fromAccount, array $amounts)
     {
@@ -327,13 +327,22 @@ class CoinManager
      */
     private function request($method, $params = [])
     {
-        if (!empty($params)) {
-            $response = $this->client->request($method, $params);
-        } else {
-            $response = $this->client->request($method);
-        }
+        $response = $this->rawRequest($method, $params);
         $responseArr = json_decode($response, true);
         return isset($responseArr['result']) ? $responseArr['result'] : $response;
+    }
 
+    /**
+     * @param $method
+     * @param array $params
+     * @return string
+     */
+    public function rawRequest($method, $params = [])
+    {
+        if (!empty($params)) {
+            return $this->client->request($method, $params);
+        } else {
+            return $this->client->request($method);
+        }
     }
 }

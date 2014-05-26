@@ -80,9 +80,14 @@ class Info extends AbstractEntity
     protected $balance;
 
     /**
+     * @var bool
+     */
+    protected $unlockedUntil;
+
+    /**
      * @param array $data
      */
-    function __construct(array $data)
+    public function __construct(array $data)
     {
         $customFields = [
             'protocolversion' => 'protocolVersion',
@@ -93,7 +98,8 @@ class Info extends AbstractEntity
             'paytxfee' => 'payTxFee',
             'blocks' => 'blocksCount',
             'connections' => 'connectionsCount',
-            'testnet' => 'testNet'
+            'testnet' => 'testNet',
+            'unlocked_until' => 'unlockedUntil'
         ];
         parent::__construct($data, $customFields);
     }
@@ -208,6 +214,22 @@ class Info extends AbstractEntity
     public function getWalletVersion()
     {
         return $this->walletVersion;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getUnlockedUntil()
+    {
+        return $this->unlockedUntil;
+    }
+
+    /**
+     * @param boolean $unlockedUntil
+     */
+    public function setUnlockedUntil($unlockedUntil)
+    {
+        $this->unlockedUntil = $unlockedUntil;
     }
 
 

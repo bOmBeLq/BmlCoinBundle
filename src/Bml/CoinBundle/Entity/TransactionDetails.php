@@ -7,8 +7,8 @@ namespace Bml\CoinBundle\Entity;
  * @author Damian Wróblewski <d.wroblewski@madden.pl>
  * @package Bml\CoinBundle\Entity
  */
-class TransactionDetails  extends AbstractEntity {
-
+class TransactionDetails  extends AbstractEntity
+{
     const CATEGORY_RECEIVE = 'receive';
     const CATEGORY_SEND = 'send';
     const CATEGORY_ORPHAN = 'orphan';

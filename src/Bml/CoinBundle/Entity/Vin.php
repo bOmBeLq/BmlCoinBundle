@@ -38,7 +38,7 @@ class Vin extends AbstractEntity
     /**
      * @param array $data
      */
-    function __construct(array $data)
+    public function __construct(array $data)
     {
         if (isset($data['scriptSig'])) {
             $this->scriptSig = new ScriptSig($data['scriptSig']);
@@ -80,4 +80,4 @@ class Vin extends AbstractEntity
     {
         return $this->vout;
     }
-} 
+}
