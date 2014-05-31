@@ -24,7 +24,7 @@ class Account
      * @param $name
      * @param $balance
      */
-    function __construct($name, $balance)
+    public function __construct($name, $balance)
     {
         $this->balance = $balance;
         $this->name = $name;
